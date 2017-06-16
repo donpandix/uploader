@@ -5,14 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   Handles image upload from CKEditor
   Controlador de ejemplo en el framework de PHP CodeIgniter
 **/
-class Uploader extends Controller
-{
-
-
-	public function __construct () {
-		parent::__construct();
-	}
-
+class Uploader extends Controller {
 
 	/**
 	 *	Upload a file in generic way
@@ -49,6 +42,4 @@ class Uploader extends Controller
 		header('Content-Type: application/json');
 		echo json_encode( $retorno );
 	}
-
-
 }
