@@ -8,7 +8,8 @@ var CG_COMPONENTS = CG_COMPONENTS || {};
 CG_COMPONENTS.params = {
 	tiempo_cambio : 1000 ,
 	url_upload_url : 'URL_AL_SERVICIO_REST',
-	placeholder : ''
+	placeholder : '',
+	nameComponent : ''
 };
 
 // Funcion mejorada del upload para el componenete especiazado
@@ -16,7 +17,7 @@ CG_COMPONENTS.upload = function ( component_caller ) {
 
 	// Inicio de las variables
 	var html  = '<form method="POST" action="'+CG_COMPONENTS.params.url_upload_url+'" style="display:none" id="frm__new_file_to_upload" enctype="multipart/form-data">';
-	    html += '   <input type="file" name="filetoupload" id="file__new_file_to_upload" value="" accept="'+component_caller.filetype+'" >';
+	    html += '   <input type="file" name="'+CG_COMPONENTS.params.nameComponent+'" id="file__new_file_to_upload" value="" accept="'+component_caller.filetype+'" >';
 	    html += '</form>';
 
 	// Adjunto el formulario
