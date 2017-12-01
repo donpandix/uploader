@@ -1,0 +1,11 @@
+.cg-uploader {
+	background-color: #FFF;
+	color: #999;
+}
+.cg-uploader .icon {
+	float:right;
+	font-size:1.6em;
+}
+.progress {
+	margin-bottom:0px;
+}
