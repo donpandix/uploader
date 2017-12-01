@@ -7,7 +7,8 @@ var CG_COMPONENTS = CG_COMPONENTS || {};
 
 CG_COMPONENTS.params = {
 	tiempo_cambio : 1000 ,
-	url_upload_url : 'URL_AL_SERVICIO_REST'
+	url_upload_url : 'URL_AL_SERVICIO_REST',
+	placeholder : ''
 };
 
 // Funcion mejorada del upload para el componenete especiazado
@@ -142,7 +143,7 @@ CG_COMPONENTS.init = function () {
         $(this).attr("title"         , this.data.placeholder);
 
         var htmlContent = '<div class="dv_content">';
-          htmlContent += this.data.placeholder;
+          htmlContent += CG_COMPONENTS.params.placeholder;
           htmlContent += '<i class="icon fa ' + this.data.icon + '" aria-hidden="true"></i>';
           htmlContent += "</div>";
                   if ( this.data.hdnname != '' ) {
