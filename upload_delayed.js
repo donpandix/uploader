@@ -16,8 +16,8 @@ CG_COMPONENTS.upload = function ( component_caller ) {
 
 	// Inicio de las variables
 	var html  = '<form method="POST" action="'+CG_COMPONENTS.params.url_upload_url+'" style="display:none" id="frm__new_file_to_upload" enctype="multipart/form-data">';
-		html += '   <input type="file" name="filetoupload" id="file__new_file_to_upload" value="" accept="'+component_caller.filetype+'" >';
-		html += "</form>";
+	    html += '   <input type="file" name="filetoupload" id="file__new_file_to_upload" value="" accept="'+component_caller.filetype+'" >';
+	    html += '</form>';
 
 	// Adjunto el formulario
 	if ($("#frm__new_file_to_upload").length > 0 ) {
@@ -107,7 +107,7 @@ CG_COMPONENTS.init = function () {
 
   $.fn.cg_uploader = function ( action ) {
     return this.each( function () {
-      if ($(this).attr("component") == 'cg-upload') {
+      if ($(this).attr("component") == 'cg-upload' && ! $(this).hasClass("cg-uploader") ) {
 
         var tiempo 	        = new Date();
         var unique 	        = tiempo.getTime() + '_' + Math.floor((Math.random() * 1000) + 1);
