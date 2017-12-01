@@ -107,7 +107,7 @@ CG_COMPONENTS.init = function () {
 
   $.fn.cg_uploader = function ( action ) {
     return this.each( function () {
-      if ($(this).attr("component") == 'cg-upload' && ! $(this).hasClass("cg-uploader") ) {
+      if ($(this).attr("component") == 'cg-upload') {
 
         var tiempo 	        = new Date();
         var unique 	        = tiempo.getTime() + '_' + Math.floor((Math.random() * 1000) + 1);
@@ -118,8 +118,8 @@ CG_COMPONENTS.init = function () {
         this.data.id            = undefined;
         this.data.placeholder   = "Subir un archivo";
         this.data.icon 	        = "fa-cloud-upload";
-              this.data.filetype      = "*";
-              this.data.hdnname       = "filename_uploaded";
+        this.data.filetype      = "*";
+        this.data.hdnname       = "filename_uploaded";
 
         $(this).addClass("cg-uploader");
 
@@ -142,23 +142,32 @@ CG_COMPONENTS.init = function () {
         $(this).attr("data-placement", "top");
         $(this).attr("title"         , this.data.placeholder);
 
-        var htmlContent = '<div class="dv_content">';
-          htmlContent += CG_COMPONENTS.params.placeholder;
-          htmlContent += '<i class="icon fa ' + this.data.icon + '" aria-hidden="true"></i>';
-          htmlContent += "</div>";
-                  if ( this.data.hdnname != '' ) {
-                      htmlContent += '<input type="hidden" id="hdn_input_'+this.data.id+'" name="'+this.data.hdnname+'" value="">';
-                  }
-          $(this).html( htmlContent );
-          if ( $(this).attr("callback") != undefined )
+        var htmlContent  = '<div class="dv_content">';
+            htmlContent += CG_COMPONENTS.params.placeholder;
+            htmlContent += '<i class="icon fa ' + this.data.icon + '" aria-hidden="true"></i>';
+            htmlContent += "</div>";
+		
+		if ( this.data.hdnname != '' ) {
+	    	htmlContent += '<input type="hidden" class="hdn_input_upload" id="hdn_input_'+this.data.id+'" name="'+this.data.hdnname+'" value="">';
+		}
+          
+		$(this).html( htmlContent );
+          
+		if ( $(this).attr("callback") != undefined )
             this.data.fn_callback = $(this).attr("callback");
+		
+		$(this).unbind( "click" );
         $(this).click( function () {
-          CG_COMPONENTS.upload( this.data );
+        	CG_COMPONENTS.upload( this.data );
         });
+		  
       }
     });
   }
 
+  // Elimna vestigios anterioes
+  $(".hdn_input_upload").remove();
+  // Recarga la funcionalidad
   $(".well").cg_uploader();
 
 }
