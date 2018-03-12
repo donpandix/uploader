@@ -7,7 +7,7 @@ var CG_COMPONENTS = CG_COMPONENTS || {};
 
 CG_COMPONENTS.params = {
 	tiempo_cambio : 1000 ,
-    url_upload_url : site_url + '/helper/upload/async_file'
+	url_upload_url : '/helper/upload/async_file'
 };
 
 // Funcion mejorada del upload para el componenete especiazado
