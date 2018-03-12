@@ -38,7 +38,13 @@ CG_COMPONENTS.upload = function ( component_caller ) {
 			$("#div_display_"+component_caller.id).find(".dv_content").html(loader);
 		},
 		success: function (responseText, statusText, xhr, wrapped) {
-            var json_response = JSON.parse( responseText );
+			var json_response = {};
+			if (typeof responseText == 'object') {
+		        	json_response = responseText;
+			} else {
+				json_response = JSON.parse( responseText );
+			}
+
             if (json_response.archivo != undefined) {
                 // Marca OK
                 var loader =  '<div class="progress">';
