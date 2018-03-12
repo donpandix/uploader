@@ -142,7 +142,7 @@ $.fn.cg_uploader = function ( action ) {
 
 			var htmlContent = '<div class="dv_content">';
 				htmlContent += this.data.placeholder;
-				htmlContent += '<i class="' + this.data.icon + '" aria-hidden="true"></i>';
+				htmlContent += '<i class="icon ' + this.data.icon + '" aria-hidden="true"></i>';
 				htmlContent += "</div>";
                 if ( this.data.hdnname != '' ) {
                     htmlContent += '<input type="hidden" id="hdn_input_'+this.data.id+'" name="'+this.data.hdnname+'" value="">';
