@@ -124,6 +124,7 @@ $.fn.cg_uploader = function ( action ) {
 			this.data.icon 	        = "fa-cloud-upload";
             this.data.filetype      = "*";
             this.data.hdnname       = "filename_uploaded";
+			this.data.value 		= "";
 
 			$(this).addClass("cg-uploader");
 
@@ -141,6 +142,9 @@ $.fn.cg_uploader = function ( action ) {
                 this.data.filetype = $(this).attr("filetype");
             if ( $(this).attr("hdnname") != undefined )
                 this.data.hdnname = $(this).attr("hdnname");
+			if ( $(this).attr("value") != undefined )
+                this.data.value = $(this).attr("value");
+			
 
 			$(this).attr("data-toggle"   , "tooltip");
 			$(this).attr("data-placement", "top");
@@ -151,7 +155,7 @@ $.fn.cg_uploader = function ( action ) {
 				htmlContent += '<i class="icon ' + this.data.icon + '" aria-hidden="true"></i>';
 				htmlContent += "</div>";
                 if ( this.data.hdnname != '' ) {
-                    htmlContent += '<input type="hidden" id="hdn_input_'+this.data.id+'" name="'+this.data.hdnname+'" value="">';
+                    htmlContent += '<input type="hidden" id="hdn_input_'+this.data.id+'" name="'+this.data.hdnname+'" value="'+this.data.value+'">';
                 }
 				$(this).html( htmlContent );
 				if ( $(this).attr("callback") != undefined )
