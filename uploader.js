@@ -7,7 +7,8 @@ var CG_COMPONENTS = CG_COMPONENTS || {};
 
 CG_COMPONENTS.params = {
 	tiempo_cambio : 1000 ,
-	url_upload_url : '/helper/upload/async_file'
+	url_upload_url : 'URL_AL_SERVICIO_POST',
+	lst_archivos : []
 };
 
 // Funcion mejorada del upload para el componenete especiazado
@@ -53,11 +54,15 @@ CG_COMPONENTS.upload = function ( component_caller ) {
                 $("#div_display_"+component_caller.id).find(".dv_content").html( loader );
                 // Mesaje final del proceso
                 setTimeout(function(){
-                    var htmlContent  = '<span class="text-success">' + json_response.nombre + '</span>';
+                    var htmlContent  = '<span class="text-success">' + json_response.nombre + ' subido exitosamente</span>';
                         htmlContent += '<i class="icon fa ' + component_caller.icon + '" aria-hidden="true"></i>';
 
                     $("#div_display_"+component_caller.id).find(".dv_content").html( htmlContent );
                     $("#hdn_input_"+component_caller.id).val( json_response.archivo );
+					
+					CG_COMPONENTS.params.lst_archivos.push( json_response );
+					CG_COMPONENTS.upload_load_view();
+					
                 }, CG_COMPONENTS.params.tiempo_cambio);
                 // Llamada a la función externa
                 if (component_caller.fn_callback != undefined) {
@@ -92,7 +97,7 @@ CG_COMPONENTS.upload = function ( component_caller ) {
             // Depliega el mensaje por pantalla
 			setTimeout(function(){
 				var htmlContent  = '<span class="text-danger"><strong>'+messageError+'</strong></strong>';
-					htmlContent += '<i class="icon fa ' + component_caller.icon + '" aria-hidden="true"></i>';
+					htmlContent += '<i class="' + component_caller.icon + '" aria-hidden="true"></i>';
 				$("#div_display_"+component_caller.id).find(".dv_content").html( htmlContent );
 			}, CG_COMPONENTS.params.tiempo_cambio);
 		}
@@ -108,6 +113,33 @@ CG_COMPONENTS.upload = function ( component_caller ) {
 	$("#file__new_file_to_upload").click();
 }
 
+CG_COMPONENTS.upload_load_view = function () {
+	if ( CG_COMPONENTS.params.lst_archivos.length > 0 ) {
+		$("#cg-upload-files").html("");
+		$.each( CG_COMPONENTS.params.lst_archivos, function (index, data) {
+			$("#cg-upload-files").append(CG_COMPONENTS.template(data));
+		});			
+	} else {
+		$("#cg-upload-files").html('<div class="well well-sm">No hay archivos subidos</div>');
+	}
+}
+
+CG_COMPONENTS.template = function ( obj_archivo ) {
+	return '<div class="well well-sm"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> '+obj_archivo.nombre+' <span class="glyphicon glyphicon-trash" onClick="CG_COMPONENTS.eliminar(\''+obj_archivo.archivo+'\')" style="float:right" aria-hidden="true"></span> </div>';
+}
+
+CG_COMPONENTS.eliminar = function ( archivo ) {
+	var indice = -1;
+	for ( x=0; x<CG_COMPONENTS.params.lst_archivos.length; x++ ) {
+		if ( CG_COMPONENTS.params.lst_archivos[x].archivo == archivo ) {
+			indice = x;
+		}
+	}
+	if (indice > -1) {
+		CG_COMPONENTS.params.lst_archivos.splice( indice, 1);
+	}
+	CG_COMPONENTS.upload_load_view();
+}
 
 $.fn.cg_uploader = function ( action ) {
 	return this.each( function () {
@@ -167,4 +199,9 @@ $.fn.cg_uploader = function ( action ) {
 	});
 }
 
-$(".well").cg_uploader();
+$(document).ready(function(){
+	$(".well").cg_uploader();
+	CG_COMPONENTS.upload_load_view(); 
+});
+
+

@@ -9,3 +9,7 @@
 .progress {
 	margin-bottom:0px;
 }
+
+#cg-upload-files .well {
+	margin-bottom: 5px;
+}
